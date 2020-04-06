@@ -1,2 +1,2 @@
 # SoftwareTeastingAssign1
-BSE173011,BSE173043,Bse173047
+Nabiya Fatima-BSE173011,Iqra Ishtiaq-BSE173043
