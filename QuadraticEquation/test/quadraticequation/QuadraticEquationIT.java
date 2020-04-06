@@ -61,11 +61,10 @@ public class root {
   private Integer b;
   private Integer c;
   private Integer expected;
-   private QuadraticEquation q;
-
+   
    @Before
    public void initialize() {
-      q=new QuadraticEquation();
+      
    }
 	
    public root(int a,int b,int c,int expected) {
@@ -78,21 +77,20 @@ public class root {
    @Parameterized.Parameters
    public  Collection values() {
       return Arrays.asList(new Object[][] {
-         { 1,2,1,true },
-         { 1,4,5,true },
-         { 1,3,2,true }
+         { 1,2,1,0 },
+         { 1,4,5,-4 },
+         { 1,3,2,1 }
          
       });
    }
 
-   // This test will run 3 times since we have 5 parameters defined
-   
-   
    @Test
-   public void testIsQuadratic() {
+   public void testCalculateDisc() {
     
-     
-     assertTrue(q.isQuadrati(a, b, c));
+     QuadraticEquation q=new QuadraticEquation();
+     q.setValues(a, b, c);
+     int result=q.calculateDisc();
+     assertEquals(expected,result,0.0000);
    }
 }
      
@@ -102,19 +100,19 @@ public class root {
         String res1=e1.CheckRoots();
         String res2=e2.CheckRoots();
         String res3=e3.CheckRoots();
+        assertNull("Not a Quadratic Equation",e6.CheckRoots());
         assertNull("Not a Quadratic Equation",e4.CheckRoots());
-       assertNull("Not a Quadratic Equation",e4.CheckRoots());
-       assertNull("Not a Quadratic Equation",e5.CheckRoots());
-       assertNotNull("Quadratic Equation",e1.CheckRoots());
-       assertNotNull("Quadratic Equation",e2.CheckRoots());
-       assertNotNull("Quadratic Equation",e3.CheckRoots());
-       assertSame("The roots are equal","equal", res1);
-         assertSame("The roots are equal","equal", e.CheckRoots());
-       assertSame("The roots are imaginary","imaginary", res2);
-       assertSame("The roots are real","real", res3);
-       assertNotSame("The roots are not equal","equal", res2);
-       assertNotSame("The roots are not imaginary","imaginary", res3);
-       assertNotSame("The roots are  not real","real", res1);
+        assertNull("Not a Quadratic Equation",e5.CheckRoots());
+        assertNotNull("Quadratic Equation",e1.CheckRoots());
+        assertNotNull("Quadratic Equation",e2.CheckRoots());
+        assertNotNull("Quadratic Equation",e3.CheckRoots());
+        assertSame("The roots are equal","equal", res1);
+
+        assertSame("The roots are imaginary","imaginary", res2);
+        assertSame("The roots are real","real", res3);
+        assertNotSame("The roots are not equal","equal", res2);
+        assertNotSame("The roots are not imaginary","imaginary", res3);
+        assertNotSame("The roots are  not real","real", res1);
        
     }
      @Test 
@@ -123,12 +121,12 @@ public class root {
         boolean res1=e1.isQuadratic();
         boolean res2=e2.isQuadratic();
         boolean res3=e3.isQuadratic();
-      assertTrue("Quadratic Equation",res1);
-      assertTrue("Quadratic Equation",res1);
-      assertTrue("Quadratic Equation",res1);
-       assertFalse("Not a Quadratic Equation",e4.isQuadratic());
-      assertFalse("Not a Quadratic Equation",e5.isQuadratic());
-      assertFalse("Not a Quadratic Equation",e6.isQuadratic());
+        assertTrue("Quadratic Equation",res1);
+        assertTrue("Quadratic Equation",res1);
+        assertTrue("Quadratic Equation",res1);
+        assertFalse("Not a Quadratic Equation",e4.isQuadratic());
+        assertFalse("Not a Quadratic Equation",e5.isQuadratic());
+        assertFalse("Not a Quadratic Equation",e6.isQuadratic());
       
     }
     
@@ -162,37 +160,46 @@ public class root {
     public void TestCalculateRoots()
     {
         double []expected=new double[2];
-          expected[0]=expected[1]=-1;  
+        expected[0]=expected[1]=-1;  
         double res[]=e1.calculateRoots();
         assertArrayEquals("Equal roots",expected,res,0.0000);
       
-         expected[0]=-2;expected[1]=1; 
-         res=e2.calculateRoots();
+        expected[0]=-2;expected[1]=1; 
+        res=e2.calculateRoots();
         assertArrayEquals("Imaginary roots",expected,res,0.0000);
         
         expected[0]=-1;expected[1]=-2; 
-         res=e3.calculateRoots();
+        res=e3.calculateRoots();
         assertArrayEquals("Real roots",expected,res,0.0000);
     }
     
     
-     @RepeatedTest(5)
+     @RepeatedTest(3)
     void repeatedTestWithRepetitionInfo(RepetitionInfo repetitionInfo) {
-        assertEquals(5, repetitionInfo.getTotalRepetitions());
-        e3.setValues(-2, 7, 4);
-        
+         assertEquals(5, repetitionInfo.getTotalRepetitions());
+         e3.setValues(-2, 7, 4);
          double []expected=new double[2];
-          expected[0]=expected[1]=-1;  
-        double res[]=e1.calculateRoots();
-        assertArrayEquals("Equal roots",expected,res,0.0000);
-      
+         double res[]=new double[2];
+        if(repetitionInfo.getCurrentRepetition()==1)
+        {
+         expected[0]=expected[1]=-1;  
+         res=e1.calculateRoots();
+         assertArrayEquals("Equal roots",expected,res,0.0000);
+        }
+         
+      if(repetitionInfo.getCurrentRepetition()==2)
+      {
          expected[0]=-2;expected[1]=1; 
          res=e2.calculateRoots();
-        assertArrayEquals("Imaginary roots",expected,res,0.0000);
-        
-        expected[0]=-4;expected[1]=-0.5; 
+         assertArrayEquals("Imaginary roots",expected,res,0.0000);
+      }
+      if(repetitionInfo.getCurrentRepetition()==3)
+      {
+         expected[0]=-4;expected[1]=-0.5; 
          res=e3.calculateRoots();
-        assertArrayEquals("Real roots",expected,res,0.0000);
+         assertArrayEquals("Real roots",expected,res,0.0000);
+      }
+       
     }
    
  

@@ -121,16 +121,7 @@ public class QuadraticEquation {
         }
         return flag;
     }
-    public boolean isQuadrati(int a,int b,int c)
-    {
-        this.a=a;
-        boolean flag=false;
-        if(a!=0)
-        {
-            flag=true;
-        }
-        return flag;
-    }
+   
     public void display()
     { QuadraticEquation e=new QuadraticEquation();
         double roots[]=new double[2];
@@ -170,10 +161,21 @@ public class QuadraticEquation {
         System.out.println("2) calculate Sum of Roots");
         System.out.println("3) calculate Product Of Roots");
         System.out.println("4) Check Equation is Quadratic?");
-           int choice;
+           int choice=0;
            
            Scanner in = new Scanner(System.in);
-           choice=in.nextInt();
+          
+             
+           try  
+        {  
+         choice=in.nextInt();
+        }  
+            //handling the exception  
+        catch(InputMismatchException w)  
+        {  
+            System.out.println("Invalid choice");  
+        }  
+           
         switch(choice)
         {
             case 1:
@@ -189,6 +191,7 @@ public class QuadraticEquation {
               {
                System.out.println("Not a Quadratic Equation");
               }
+              break;
             }
             case 2:
             {
@@ -202,6 +205,7 @@ public class QuadraticEquation {
               {
                System.out.println("Not a Quadratic Equation");
               }
+                 break;
             }
             case 3:
             {
@@ -215,6 +219,7 @@ public class QuadraticEquation {
               {
                System.out.println("Not a Quadratic Equation");
               }
+                 break;
             }
             case 4:
             {
@@ -229,6 +234,11 @@ public class QuadraticEquation {
               {
                System.out.println("Not a Quadratic Equation");
               }
+                 break;
+            }
+             default:
+            {
+                System.out.println("Invalid Choice");
             }
             
         }
