@@ -16,12 +16,6 @@ public abstract class Shape {
  //attribute of class Shape
  private String name;
  
- //Default Constructor of Shape
- public Shape()
- {
-    name = "";
-  }
- 
   //Parameterized Constructor of Shape
  public Shape(String n)
  {
