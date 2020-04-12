@@ -35,7 +35,14 @@ public class Rectangle extends Shape {
     {
        name=n;
     }
-
+void  setname(String n)
+{
+	name=n;
+}
+	String getname()
+	{
+		rteurn name;
+	}
     
         
     //Overriding abstarct function
