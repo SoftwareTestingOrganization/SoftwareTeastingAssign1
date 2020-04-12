@@ -25,13 +25,14 @@ public class Rectangle extends Shape {
    //Parameterized Constructor
    public Rectangle(double w,double h)
    {
-   super("Rectangle");
+  
    width=w;
    height=h;
    
    }
 	//Parameterized Constructor
-    Rectangle(String n) {
+    Rectangle(String n) 
+    {
        name=n;
     }
 
